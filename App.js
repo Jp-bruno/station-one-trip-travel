@@ -1,8 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, Text, NativeBaseProvider, Button } from "native-base";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ScrollView, NativeBaseProvider } from "native-base";
+import { ImageBackground, Dimensions } from "react-native";
 import { useEffect, useState, useRef } from "react";
-import { Dimensions } from "react-native";
 import StartScreenContent from "./components/StartScreenContent";
 
 const { height, width } = Dimensions.get("window");
@@ -32,7 +31,7 @@ export default function App() {
   const [section, setSection] = useState(0);
 
   const renderItem = (img, index) => {
-    return <ImageBackground key={index} style={styles.background} resizeMode="cover" source={img} />;
+    return <ImageBackground key={index} style={{width, height}} resizeMode="cover" source={img} />;
   };
 
   const listRef = useRef(null)
@@ -54,11 +53,3 @@ export default function App() {
     </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    height: height,
-    width: width,
-    flex: 1,
-  },
-});
