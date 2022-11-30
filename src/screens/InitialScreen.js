@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import StartScreenContent from "../components/StartScreenContent";
+import InitialScreenContent from "../components/InitialScreenContent";
 import { ScrollView, View} from "native-base";
 import { Dimensions, ImageBackground } from "react-native";
 import { useState, useEffect, useRef } from "react";
@@ -48,7 +48,7 @@ export default function InitialScreen() {
         {data.map((item, index) => renderItem(item.img, index))}
       </ScrollView>
 
-      <StartScreenContent data={data} section={section} setSection={setSection} />
+      <InitialScreenContent data={data} section={section} setSection={setSection} />
     </View>
   );
 }

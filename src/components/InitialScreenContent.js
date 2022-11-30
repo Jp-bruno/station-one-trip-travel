@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 
 
-export default function StartScreenContent({ data, section, setSection }) {
+export default function InitialScreenContent({ data, section, setSection }) {
   const { isAuth, toggleAuth } = useContext(AuthContext);
 
   function buttonPressHandler() {
