@@ -1,8 +1,21 @@
-import { Box, Text, Button, VStack, Heading } from "native-base";
+import { Box, Text, Button, Heading } from "native-base";
 import { LinearGradient } from "expo-linear-gradient";
 import ProgressBar from "./ProgressBar";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from "react";
+
 
 export default function StartScreenContent({ data, section, setSection }) {
+  const { isAuth, toggleAuth } = useContext(AuthContext);
+
+  function buttonPressHandler() {
+    if (section === 2) {
+      return toggleAuth()
+    }
+
+    setSection(value => value === 2 ? 0 : value + 1)
+  }
+
   return (
     <Box position="absolute" width="100%" height={"100%"} bottom="0" justifyItems="end">
       <LinearGradient colors={["transparent", "rgba(1, 60, 105, 0.90)"]} style={{ height: "100%" }} locations={[0.3, 0.8]}>
@@ -11,13 +24,13 @@ export default function StartScreenContent({ data, section, setSection }) {
           <Text color="white" fontWeight="500" textAlign="center" alignSelf={"center"} width={"80%"} mb={4}>{`${data[section].text}`}</Text>
 
           <Button
-            backgroundColor="#FAFF00"
+            backgroundColor={isAuth ? 'red.500' : "#FAFF00"}
             height="48px"
             borderRadius="8px"
             width="90%"
             alignSelf="center"
             _pressed={{ backgroundColor: "red.100" }}
-            onPress={() => setSection((value) => (value === 2 ? 0 : value + 1))}
+            onPress={buttonPressHandler}
           >
             <Text>{section === 2 ? "Começar" : "Continuar"}</Text>
           </Button>

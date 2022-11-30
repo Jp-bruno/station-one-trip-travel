@@ -1,7 +1,16 @@
 import { HStack, Divider } from "native-base";
 
 const Dot = ({ section, currentSection }) => {
-  return <Divider width={section === currentSection ? "32px" : "12px"} height={3} borderRadius={100} backgroundColor={section === currentSection ? "#FAFF00" : "white"} />;
+  return (
+    <Divider
+      section={section}
+      currentSection={currentSection}
+      width={section === currentSection ? "32px" : "12px"}
+      height={3}
+      borderRadius={100}
+      backgroundColor={section === currentSection ? "#FAFF00" : "white"}
+    />
+  );
 };
 
 export default function ProgressBar({ section }) {
