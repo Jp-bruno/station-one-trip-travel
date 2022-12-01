@@ -1,13 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import InitialScreenContent from "../components/InitialScreenContent";
-import { ScrollView, View} from "native-base";
+import { ScrollView, View, Box } from "native-base";
 import { Dimensions, ImageBackground } from "react-native";
 import { useState, useEffect, useRef } from "react";
+import LoginScreen from "./LoginScreen";
 
 const { width, height } = Dimensions.get("window");
 
 export default function InitialScreen() {
-  const data = [
+  const [section, setSection] = useState(0);
+  const [data, setData] = useState([
     {
       key: "1",
       heading: "Boas vindas!",
@@ -26,16 +28,26 @@ export default function InitialScreen() {
       text: "O mundo na palma da sua mão",
       img: require("../assets/inicio-tela-3.png"),
     },
-  ];
-
-  const [section, setSection] = useState(0);
+  ]);
 
   useEffect(() => {
     listRef.current.scrollTo({ x: width * section, animated: true });
+    if (section >= 3) {
+      setTimeout(() => {
+        setData([])
+      }, 500);
+    }
   }, [section]);
 
   const renderItem = (img, index) => {
-    return <ImageBackground key={index} style={{ width, height }} resizeMode="cover" source={img} />;
+    return (
+      <ImageBackground
+        key={index}
+        style={{ width, height }}
+        resizeMode="cover"
+        source={img}
+      />
+    );
   };
 
   const listRef = useRef(null);
@@ -44,11 +56,19 @@ export default function InitialScreen() {
     <View>
       <StatusBar />
 
-      <ScrollView showsHorizontalScrollIndicator={false} horizontal ref={listRef}>
-        {data.map((item, index) => renderItem(item.img, index))}
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        ref={listRef}
+      >
+        {data.map((item) => renderItem(item.img, item.key))}
+        <LoginScreen />
       </ScrollView>
-
-      <InitialScreenContent data={data} section={section} setSection={setSection} />
+      <InitialScreenContent
+        data={data}
+        section={section}
+        setSection={setSection}
+      />
     </View>
   );
 }
