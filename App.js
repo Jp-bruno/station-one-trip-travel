@@ -1,14 +1,16 @@
+import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
-import AuthContextProvider from "./src/contexts/AuthContext";
-import Routes from './src/routes/index';
+import Routes from "./src/routes";
+import AuthContextProvider from "./src/context/authContext";
 
 export default function App() {
-
   return (
-    <AuthContextProvider>
-      <NativeBaseProvider>
-        <Routes />
-      </NativeBaseProvider>
-    </AuthContextProvider>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <AuthContextProvider>
+          <Routes />
+        </AuthContextProvider>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 }
